@@ -1,31 +1,61 @@
 {
-  "name": "hook-ts",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.3",
-    "@types/react": "^18.0.25",
-    "@types/react-dom": "^18.0.8",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "typescript": "^4.8.4",
-    "web-vitals": "^2.1.4"
+  "name": "difingship",
+  "version": "0.1.1",
+  "description": "React components library",
+  "author": "HDF",
+  "private": false,
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "keywords": [
+    "Component",
+    "UI",
+    "React"
+  ],
+  "homepage": "https://github.com/DiF1202/difingship",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DiF1202/difingship"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "lint": "eslint --ext js,ts,tsx src --max-warnings 5",
+    "build": "yarn clean && yarn build-css && yarn build-ts",
+    "clean": "rimraf ./dist",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test:nowatch": "cross-env CI=true react-scripts test",
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public",
+    "build-ts": "tsc -p tsconfig.build.json",
+    "build-css": "node-sass ./src/styles/index.scss ./dist/index.css",
+    "prepublish": "yarn test:nowatch && yarn lint && yarn build"
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "react-app"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      },
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
     ]
   },
   "browserslist": {
@@ -39,5 +69,56 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn test:nowatch && yarn lint"
+    }
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.2.1",
+    "@fortawesome/free-regular-svg-icons": "^6.2.1",
+    "@fortawesome/free-solid-svg-icons": "^6.2.1",
+    "@fortawesome/react-fontawesome": "^0.1.8",
+    "axios": "0.19.1",
+    "classnames": "^2.3.2",
+    "husky": "4.2.1",
+    "react-transition-group": "^4.3.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "^6.5.13",
+    "@storybook/addon-essentials": "^6.5.13",
+    "@storybook/addon-info": "^5.3.21",
+    "@storybook/addon-interactions": "^6.5.13",
+    "@storybook/addon-links": "^6.5.13",
+    "@storybook/builder-webpack4": "^6.5.13",
+    "@storybook/manager-webpack4": "^6.5.13",
+    "@storybook/node-logger": "^6.5.13",
+    "@storybook/preset-create-react-app": "^3.2.0",
+    "@storybook/react": "^6.5.13",
+    "@storybook/testing-library": "^0.0.13",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "12.1.5",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/classnames": "^2.2.9",
+    "@types/jest": "^27.5.2",
+    "@types/node": "12.12.14",
+    "@types/react": "^16.9.13",
+    "@types/react-dom": "16.9.4",
+    "@types/react-transition-group": "^4.2.3",
+    "@types/storybook__addon-info": "^5.2.1",
+    "cross-env": "^7.0.0",
+    "node-sass": "^4.13.0",
+    "react": "^16.12.0",
+    "react-docgen-typescript-loader": "3.7.2",
+    "react-dom": "^16.12.0",
+    "react-scripts": "3.2.0",
+    "rimraf": "3.0.1",
+    "sass-loader": "^10.1.0",
+    "typescript": "^3.7.2"
   }
 }
